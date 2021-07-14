@@ -29,8 +29,8 @@ def foo_client(factory: IsFactoryForSupportsParam) -> str:
     return f'foo.param() = {foo.param()}'
 
 
-def foo_factory(foo_param: str) -> SupportsParam:
-    return FooImpl(foo_param)
+def foo_factory(new_foo_param: str) -> SupportsParam:
+    return FooImpl(new_foo_param)
 
 
 if __name__ == "__main__":
