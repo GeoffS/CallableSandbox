@@ -1,31 +1,35 @@
-from abc import ABC, abstractmethod
 from typing import Callable
+from typing_extensions import Protocol
 
 
-class Foo(ABC):
-    @abstractmethod
+class SupportsParam(Protocol):
     def param(self) -> str:
-        pass
+        ...
 
 
-class FooImpl(Foo):
+class IsFactoryForSupportsParam(Protocol):
+    def __call__(self, new_foo_param: str) -> SupportsParam:
+        ...
+
+
+class FooImpl():
     def __init__(self, foo_param: str):
         self._param = foo_param
 
     def param(self) -> str:
         return self._param
 
-    def __call__(self, new_foo_param: str) -> Foo:
+    def __call__(self, new_foo_param: str) -> SupportsParam:
         self._param = new_foo_param
         return self
 
 
-def foo_client(factory: Callable[[str], Foo]) -> str:
-    foo = factory("foo_client value-added parameter")
+def foo_client(factory: IsFactoryForSupportsParam) -> str:
+    foo: SupportsParam = factory("foo_client value-added parameter")
     return f'foo.param() = {foo.param()}'
 
 
-def foo_factory(foo_param: str) -> Foo:
+def foo_factory(foo_param: str) -> SupportsParam:
     return FooImpl(foo_param)
 
 
