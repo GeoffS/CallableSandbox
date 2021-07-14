@@ -26,11 +26,12 @@ def foo_factory(foo_param: str) -> Foo:
 
 
 if __name__ == "__main__":
-    # Correct useage; no static-type errors.
     res1 = foo_client(lambda foo_param: FooImpl(foo_param))
     print(f"lambda factory:   '{res1}'")
+
     res2 = foo_client(foo_factory)
     print(f"def factory:      '{res2}'")
+
     res3 = foo_client(FooImpl)
     print(f"Class as factory: '{res3}'")
 
