@@ -1,5 +1,7 @@
 # Functions can't be passed as callable protocol #5453
 # https://github.com/python/mypy/issues/5453
+#
+# This example includes a parameter for the Protocol function.
 
 from typing import Protocol
 
